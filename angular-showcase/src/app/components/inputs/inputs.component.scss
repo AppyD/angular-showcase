@@ -1,0 +1,27 @@
+@import "./datepicker/datepicker.component.scss";
+@import "./dropdown/dropdown.component.scss";
+
+app-inputs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+
+  .input-group {
+    margin-left: 10px;
+    height: 56px;
+  }
+
+  .mat-mdc-raised-button {
+    top: 10px;
+  }
+
+  mat-button-toggle-group {
+    .mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+      background-color: indigo;
+      color: white;
+    }
+
+  }
+
+}

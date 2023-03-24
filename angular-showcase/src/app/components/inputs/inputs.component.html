@@ -1,0 +1,23 @@
+<mat-button-toggle-group class="input-group">
+  <mat-button-toggle value="current" (change)="setLocation($event)">Use current location</mat-button-toggle>
+  <mat-button-toggle value="custom" (change)="setLocation($event)">Custom location</mat-button-toggle>
+</mat-button-toggle-group>
+
+<div *ngIf="!useCurrentLocation">
+  <app-numerical  [title]="'Latitude'" (valueChange$)="setLatitude($event)" class="input-group"></app-numerical>
+
+  <app-numerical  [title]="'Longitude'" (valueChange$)="setLongitude($event)" class="input-group"></app-numerical>
+</div>
+
+<app-dropdown class="input-group" [title]="'Variable'"
+                                  [choices]="variables"
+                                  (selection$)="setVariable($event)"></app-dropdown>
+
+<mat-button-toggle-group class="input-group">
+  <mat-button-toggle value="live" (change)="setTime($event)">Live</mat-button-toggle>
+  <mat-button-toggle value="historical" (change)="setTime($event)">Historical</mat-button-toggle>
+</mat-button-toggle-group>
+
+<app-datepicker class="input-group" *ngIf="!isLive" (startDate)="setStartDate($event)" (endDate)="setEndDate($event)"></app-datepicker>
+
+<button mat-raised-button color="primary" class="input-group" (click)="onSubmit()">Submit</button>

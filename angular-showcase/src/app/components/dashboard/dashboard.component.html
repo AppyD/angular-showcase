@@ -1,0 +1,9 @@
+<h2>Weather Dashboard</h2>
+
+<aside>
+  <a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a>
+</aside>
+
+<app-inputs (selections)="requestData($event)"></app-inputs>
+
+<app-chart [data]="data | async"></app-chart>
