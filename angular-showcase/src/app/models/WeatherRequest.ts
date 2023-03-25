@@ -1,11 +1,11 @@
-import { WeatherData } from "./WeatherData";
+import { WeatherInputs } from "./WeatherInputs";
 
 export namespace WeatherRequest {
 
   export interface BaseRequest {
     latitude: number;
     longitude: number;
-    hourly: WeatherData.Variables;
+    hourly: WeatherInputs.Variables;
   }
 
   export interface Live extends BaseRequest {

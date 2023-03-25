@@ -1,6 +1,10 @@
-export namespace Temperature {
+export namespace Response {
 
-  export interface Response {
+  interface HourlyData {
+    time: string[]
+  }
+
+  export interface Data {
     latitude: number;
     longitude: number;
     generationtime_ms: number;
@@ -9,15 +13,12 @@ export namespace Temperature {
     elevation: number;
     hourly_units: {
       time: string;
-      temperature_2m: string;
+      [key: string]: string;
     };
-    hourly: {
-      time: string[],
-      temperature_2m: number[];
+    hourly: HourlyData & {
+      [key: string]: number[];
     }
   }
-
-  export type ChartData = {x: number, y: number}[]
 
 }
 

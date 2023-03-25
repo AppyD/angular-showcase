@@ -7,6 +7,7 @@ import { MAT_DATE_LOCALE} from '@angular/material/core';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ChartComponent } from './components/chart/chart.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ChartComponent } from './components/chart/chart.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    InputsModule
+    InputsModule,
+    HighchartsChartModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},

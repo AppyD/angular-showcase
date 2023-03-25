@@ -1,9 +1,11 @@
+import { WeatherInputs } from './../../models/WeatherInputs';
 import { WeatherRequest } from '../../models/WeatherRequest';
 import { WeatherService } from './../../services/weather.service';
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { Temperature } from '../../models/Temperature';
+import { Response } from '../../models/Response';
+import { Chart } from '../../models/Chart';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +14,7 @@ import { Temperature } from '../../models/Temperature';
 })
 export class DashboardComponent {
 
-  public data: Subject<any> = new Subject();
+  public chartModel: Subject<Chart.Model> = new Subject();
 
   constructor(public weatherService: WeatherService){
   }
@@ -21,14 +23,25 @@ export class DashboardComponent {
     this.weatherService.getData(request)
     .pipe(
       take(1)
-    ).subscribe(response => this.data.next(this.transformData(response)));
+    ).subscribe(response => {
+      const label: string = WeatherInputs.Labels[request.hourly];
+      const model = {
+        data: this.transformData(response, request.hourly),
+        options: {
+          seriesName: label,
+          yAxisTitle: `${label} (${response.hourly_units[request.hourly]})`,
+          title: `${label} ${request.isLive ? 'Today' : request.start_date + " to " + request.end_date}`
+        }
+      };
+      this.chartModel.next(model);
+    });
   }
 
-  transformData(data: Temperature.Response): Temperature.ChartData {
+  transformData(data: Response.Data, field: string): Chart.Data {
     return data.hourly.time.map((date: string, index: number) => {
       return {
         x: new Date(date).getTime(),
-        y: data.hourly.temperature_2m[index]
+        y: data.hourly[field][index]
       }
     })
   }

@@ -4,7 +4,7 @@ import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { Subject } from 'rxjs';
 
 import { DropdownChoices } from '../../models/InputModels';
-import { WeatherData } from '../../models/WeatherData';
+import { WeatherInputs } from '../../models/WeatherInputs';
 import { LocationChoices, TimeChoices } from './../../models/InputModels';
 
 @Component({
@@ -15,12 +15,9 @@ import { LocationChoices, TimeChoices } from './../../models/InputModels';
 export class InputsComponent {
   @Output() selections: Subject<WeatherRequest.Request> = new Subject();
 
-  public variables: DropdownChoices[] = [
-    { value: WeatherData.Variables.TEMPERATURE, label: 'Temperature 2m' },
-    { value: WeatherData.Variables.WINDSPEED, label: 'Wind Speed 10m' },
-    { value: WeatherData.Variables.RAIN, label: 'Rain' },
-    { value: WeatherData.Variables.SNOWFALL, label: 'Snowfall' },
-  ];
+  public variables: DropdownChoices[] = Object.entries(WeatherInputs.Labels).map(entry => {
+    return {value: entry[0], label: entry[1]}
+  });
 
   public isLive: boolean = true;
   public useCurrentLocation: boolean = true;
@@ -43,7 +40,7 @@ export class InputsComponent {
 
   setVariable(selectedVariable: string): void {
     if (selectedVariable) {
-      this.inputSelections.hourly = selectedVariable as WeatherData.Variables;
+      this.inputSelections.hourly = selectedVariable as WeatherInputs.Variables;
     }
   }
 
@@ -72,6 +69,8 @@ export class InputsComponent {
       });
     } else {
       this.useCurrentLocation = false;
+      this.inputSelections.latitude = undefined;
+      this.inputSelections.longitude = undefined;
     }
   }
 
@@ -92,8 +91,8 @@ export class InputsComponent {
         latitude: this.inputSelections.latitude,
         longitude: this.inputSelections.longitude,
         hourly: this.inputSelections.hourly,
-        start_date: this.inputSelections.startDate,
-        end_date: this.inputSelections.endDate,
+        start_date: this.inputSelections.startDate.toISOString().slice(0,10),
+        end_date: this.inputSelections.endDate.toISOString().slice(0,10),
       };
     }
 
@@ -105,7 +104,7 @@ export class InputsComponent {
   }
 
   private areInputsValid(inputs: WeatherRequest.Request){
-    return !Object.values(inputs).some(x => !x);
+    return !Object.values(inputs).some(x => x === undefined);
   }
 
 }
