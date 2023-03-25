@@ -1,11 +1,9 @@
-@import "./datepicker/datepicker.component.scss";
-@import "./dropdown/dropdown.component.scss";
-
 app-inputs {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
+  margin-bottom: 25px;
 
   .input-group {
     margin-left: 10px;
@@ -21,7 +19,10 @@ app-inputs {
       background-color: indigo;
       color: white;
     }
+  }
 
+  .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+    padding: 3px 12px;
   }
 
 }

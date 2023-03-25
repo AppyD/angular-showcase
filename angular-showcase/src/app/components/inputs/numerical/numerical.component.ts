@@ -3,8 +3,7 @@ import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-numerical',
-  templateUrl: './numerical.component.html',
-  styleUrls: ['./numerical.component.scss']
+  templateUrl: './numerical.component.html'
 })
 export class NumericalComponent {
 

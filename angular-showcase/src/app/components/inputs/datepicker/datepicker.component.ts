@@ -4,19 +4,16 @@ import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-datepicker',
-  templateUrl: './datepicker.component.html',
-  styleUrls: ['./datepicker.component.scss']
+  templateUrl: './datepicker.component.html'
 })
 export class DatepickerComponent {
 
-  // TODO date range validation injectable
-  // @Input() min: Date = new Date("2022-01-01");
-  // @Input() max: Date = new Date();
+  @Input() min: Date = new Date("2023-01-01");
+  @Input() max: Date = new Date();
 
   @Output() startDate: Subject<Date> = new Subject();
   @Output() endDate: Subject<Date> = new Subject();
 
-  // MatDatepickerInputEvent<any, DateRange<any>>
   changeStart(selection: MatDatepickerInputEvent<any, DateRange<any>>){
     this.startDate.next(selection.value);
   }

@@ -1,6 +1,6 @@
 <mat-form-field appearance="fill">
   <mat-label>Historical Date Range</mat-label>
-  <mat-date-range-input [rangePicker]="picker">
+  <mat-date-range-input [rangePicker]="picker" [min]="min" [max]="max">
     <input matStartDate placeholder="DD/MM/YYYY" (dateChange)="changeStart($event)">
     <input matEndDate placeholder="DD/MM/YYYY" (dateChange)="changeEnd($event)">
   </mat-date-range-input>
