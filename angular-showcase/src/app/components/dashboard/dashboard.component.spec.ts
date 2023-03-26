@@ -1,6 +1,6 @@
-import { WeatherRequest } from 'src/app/models/WeatherRequest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReplaySubject } from 'rxjs';
+import { WeatherRequest } from 'src/app/models/WeatherRequest';
 
 import { WeatherService } from './../../services/weather.service';
 import { ChartModule } from './../chart/chart.module';

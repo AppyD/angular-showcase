@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { DateRange, MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Subject } from 'rxjs';
 

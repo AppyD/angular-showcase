@@ -1,7 +1,7 @@
-import { WeatherRequest } from 'src/app/models/WeatherRequest';
 import { Component, Output } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { Subject } from 'rxjs';
+import { WeatherRequest } from 'src/app/models/WeatherRequest';
 
 import { DropdownChoices } from '../../models/InputModels';
 import { WeatherInputs } from '../../models/WeatherInputs';

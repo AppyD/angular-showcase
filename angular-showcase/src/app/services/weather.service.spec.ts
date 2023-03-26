@@ -1,12 +1,11 @@
-import { ReplaySubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { Data } from '@angular/router';
+import { ReplaySubject } from 'rxjs';
 import { WeatherRequest } from 'src/app/models/WeatherRequest';
 
-import { WeatherService } from './weather.service';
 import { WeatherInputs } from '../models/WeatherInputs';
+import { WeatherService } from './weather.service';
 
 describe('WeatherService', () => {
   let service: WeatherService;

@@ -1,15 +1,16 @@
-import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { HarnessLoader } from '@angular/cdk/testing';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSelectHarness } from '@angular/material/select/testing';
-import { DropdownComponent } from './dropdown.component';
-import { MatSelectModule } from '@angular/material/select';
-import { Subject } from 'rxjs';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { Component } from '@angular/core';
-import { DropdownChoices } from 'src/app/models/InputModels';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSelectHarness } from '@angular/material/select/testing';
 import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Subject } from 'rxjs';
+import { DropdownChoices } from 'src/app/models/InputModels';
+
+import { DropdownComponent } from './dropdown.component';
 
 @Component({
   selector: 'wrapper',

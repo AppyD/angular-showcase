@@ -1,12 +1,10 @@
-import { DashboardModule } from './components/dashboard/dashboard.module';
-import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { WeatherService } from './services/weather.service';
+import { TestBed } from '@angular/core/testing';
+
+import { AppComponent } from './app.component';
+import { DashboardModule } from './components/dashboard/dashboard.module';
 
 describe('AppComponent', () => {
-  let weatherService: WeatherService;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [DashboardModule, HttpClientTestingModule],

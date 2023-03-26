@@ -1,24 +1,22 @@
-import { MatInputHarness } from '@angular/material/input/testing';
-import { FormsModule } from '@angular/forms';
-import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { HarnessLoader } from '@angular/cdk/testing';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatButtonToggleHarness } from '@angular/material/button-toggle/testing';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonToggleHarness } from '@angular/material/button-toggle/testing';
+
+import { WeatherInputs } from '../../models/WeatherInputs';
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { InputsComponent } from './inputs.component';
 import { NumericalComponent } from './numerical/numerical.component';
-import { MatSelectHarness } from '@angular/material/select/testing';
-import { WeatherInputs } from '../../models/WeatherInputs';
-import { MatStartDateHarness } from '@angular/material/datepicker/testing';
 
 describe('InputsComponent', () => {
   let component: InputsComponent;
