@@ -1,3 +1,4 @@
+import { ChartComponent } from './../chart/chart.component';
 import { InputsComponent } from './inputs.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,14 +12,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import { NumericalComponent } from './numerical/numerical.component';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
     InputsComponent,
     DropdownComponent,
     DatepickerComponent,
-    NumericalComponent,
+    NumericalComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +29,8 @@ import { NumericalComponent } from './numerical/numerical.component';
     MatNativeDateModule,
     MatButtonModule,
     MatButtonToggleModule,
-    MatInputModule
+    MatInputModule,
+    MatFormFieldModule
   ],
   exports: [InputsComponent]
 })

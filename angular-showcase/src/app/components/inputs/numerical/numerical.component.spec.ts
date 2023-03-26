@@ -1,3 +1,5 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NumericalComponent } from './numerical.component';
@@ -8,6 +10,7 @@ describe('NumericalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ MatInputModule, BrowserAnimationsModule ],
       declarations: [ NumericalComponent ]
     })
     .compileComponents();

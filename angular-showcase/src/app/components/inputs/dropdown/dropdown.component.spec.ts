@@ -1,6 +1,9 @@
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DropdownComponent } from './dropdown.component';
+import { MatSelectModule } from '@angular/material/select';
 
 describe('DropdownComponent', () => {
   let component: DropdownComponent;
@@ -8,6 +11,11 @@ describe('DropdownComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatSelectModule,
+      ],
       declarations: [ DropdownComponent ]
     })
     .compileComponents();
