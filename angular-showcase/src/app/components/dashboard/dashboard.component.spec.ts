@@ -59,7 +59,7 @@ describe('DashboardComponent', () => {
     });
 
     const onNextSpy = jasmine.createSpy("onNextSpy");
-    component.chartModel.subscribe(onNextSpy);
+    component.chartModel$.subscribe(onNextSpy);
     component.requestData({hourly: "temperature_2m", isLive: true} as WeatherRequest.Request);
 
     expect(onNextSpy).toHaveBeenCalledOnceWith({
@@ -84,7 +84,7 @@ describe('DashboardComponent', () => {
     });
 
     const onNextSpy = jasmine.createSpy("onNextSpy");
-    component.chartModel.subscribe(onNextSpy);
+    component.chartModel$.subscribe(onNextSpy);
     component.requestData({hourly: "rain", isLive: false, start_date: "2023-02-02", end_date: "2023-03-03"} as WeatherRequest.Request);
 
     expect(onNextSpy).toHaveBeenCalledOnceWith({
@@ -101,7 +101,7 @@ describe('DashboardComponent', () => {
     dataSubject.next(undefined);
 
     const onNextSpy = jasmine.createSpy("onNextSpy");
-    component.chartModel.subscribe(onNextSpy);
+    component.chartModel$.subscribe(onNextSpy);
     component.requestData({hourly: "temperature_2m", isLive: true} as WeatherRequest.Request);
 
     expect(onNextSpy).not.toHaveBeenCalled();

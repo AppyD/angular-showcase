@@ -8,6 +8,6 @@
 
 <app-inputs (selections$)="requestData($event)"></app-inputs>
 
-<app-chart [model]="chartModel | async"></app-chart>
+<app-chart [model]="chartModel$ | async"></app-chart>
 
 <app-past-requests [pastRequests]="pastRequests"></app-past-requests>

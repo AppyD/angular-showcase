@@ -14,7 +14,7 @@ import { Chart } from '../../models/Chart';
 })
 export class DashboardComponent {
 
-  public chartModel: Subject<Chart.Model> = new Subject();
+  public chartModel$: Subject<Chart.Model> = new Subject();
   public pastRequests: WeatherRequest.Request[] = [];
 
   constructor(public weatherService: WeatherService){
@@ -35,7 +35,7 @@ export class DashboardComponent {
             title: `${label} (${request.isLive ? 'Today' : request.start_date + ' to ' + request.end_date})`,
           },
         };
-        this.chartModel.next(model);
+        this.chartModel$.next(model);
         this.pastRequests.push(request);
       }
     });

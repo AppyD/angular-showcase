@@ -59,7 +59,7 @@ describe('DatepickerComponent', () => {
   });
 
   it("should emit start date when start is changed", async () => {
-    const spy = spyOn(component.startDate, "next");
+    const spy = spyOn(component.startDate$, "next");
     const startDate = await loader.getHarness(MatStartDateHarness);
     await startDate.setValue("2023-02-02");
     fixture.detectChanges();
@@ -67,7 +67,7 @@ describe('DatepickerComponent', () => {
   });
 
   it("should emit end date when end is changed", async () => {
-    const spy = spyOn(component.endDate, "next");
+    const spy = spyOn(component.endDate$, "next");
     const endDate = await loader.getHarness(MatEndDateHarness);
     await endDate.setValue("2023-03-02");
     fixture.detectChanges();

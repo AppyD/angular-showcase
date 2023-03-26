@@ -11,15 +11,15 @@ export class DatepickerComponent {
   public min: Date = new Date("2023-01-01"); // for practicality - don't want to request the endpoint for too much data!
   public max: Date = new Date();
 
-  @Output() startDate: Subject<Date> = new Subject();
-  @Output() endDate: Subject<Date> = new Subject();
+  @Output() startDate$: Subject<Date> = new Subject();
+  @Output() endDate$: Subject<Date> = new Subject();
 
   changeStart(selection: MatDatepickerInputEvent<any, DateRange<any>>){
-    this.startDate.next(selection.value);
+    this.startDate$.next(selection.value);
   }
 
   changeEnd(selection: MatDatepickerInputEvent<any, DateRange<any>>){
-    this.endDate.next(selection.value);
+    this.endDate$.next(selection.value);
   }
 
 }
