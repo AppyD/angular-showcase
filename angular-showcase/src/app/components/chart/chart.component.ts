@@ -7,8 +7,7 @@ import { Chart } from '../../models/Chart';
   templateUrl: './chart.component.html',
 })
 export class ChartComponent {
-
-  @Input() public data: Chart.Model | null;
+  @Input() public model: Chart.Model | null;
 
   Highcharts: typeof Highcharts = Highcharts;
 
@@ -16,15 +15,14 @@ export class ChartComponent {
 
   updateFlag: boolean = false;
 
-
-  constructor(){
-    this.data = {
+  constructor() {
+    this.model = {
       data: [],
       options: {
-        seriesName: "Weather Data",
-        yAxisTitle: "",
-        title: ""
-      }
+        seriesName: 'Weather Data',
+        yAxisTitle: '',
+        title: '',
+      },
     };
 
     this.chartOptions = {
@@ -32,50 +30,55 @@ export class ChartComponent {
         type: 'line',
       },
       title: {
-        text: this.data.options.title
+        text: this.model.options.title,
       },
       xAxis: {
         type: 'datetime',
         title: {
-          text: "Time"
-        }
+          text: 'Time',
+        },
       },
-      series: [{
-        type: 'line',
-        data: this.data.data,
-        name: this.data.options.seriesName
-      }]
+      series: [
+        {
+          type: 'line',
+          data: this.model.data,
+          name: this.model.options.seriesName,
+        },
+      ],
     };
   }
 
-  ngOnChanges(changes: SimpleChanges){
-    if(!!this.chartOptions){
+  private hasChanged(changes: SimpleChanges): boolean {
+    return this.chartOptions && changes?.['model']?.currentValue && !changes['model'].isFirstChange()
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.hasChanged(changes)) {
+      const model = changes['model'].currentValue;
+
       let seriesObj: Highcharts.SeriesOptionsType = {
         type: 'line',
-        data: [],
-        name: ""
+        data: model.data,
+        name:  model.options.seriesName,
       };
 
-      let yAxisObj = {
+      let yAxisObj: Highcharts.YAxisOptions = {
         title: {
-          text: ""
-        }
+          text: model.options.yAxisTitle,
+        },
       };
 
-      let titleObj = {
-        text: ""
+      let titleObj: Highcharts.TitleOptions = {
+        text: model.options.title,
       };
 
-      if (changes?.['data']?.currentValue && !changes['data'].isFirstChange()) {
-        seriesObj.data = changes['data'].currentValue.data;
-        seriesObj.name = changes['data'].currentValue.options.seriesName;
-        yAxisObj.title.text = changes['data'].currentValue.options.yAxisTitle;
-        titleObj.text = changes['data'].currentValue.options.title;
-      }
-
-      this.chartOptions = {...this.chartOptions, series: [seriesObj], yAxis: yAxisObj, title: titleObj};
+      this.chartOptions = {
+        ...this.chartOptions,
+        series: [seriesObj],
+        yAxis: yAxisObj,
+        title: titleObj,
+      };
       this.updateFlag = true;
     }
   }
-
 }

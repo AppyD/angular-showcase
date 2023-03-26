@@ -8,12 +8,17 @@ import { Subject } from 'rxjs';
 export class NumericalComponent {
 
   @Input() public title: string = "";
-  @Input() value: number = 0;
+  @Input() public min: number = -180;
+  @Input() public max: number = 180;
 
   @Output() valueChange$: Subject<number> = new Subject();
 
+  public value = 0;
+
   emitValue(value: number){
-    this.valueChange$.next(value);
+    if(value !== null && value <= this.max && value >= this.min){
+      this.valueChange$.next(value);
+    }
   }
 
 }

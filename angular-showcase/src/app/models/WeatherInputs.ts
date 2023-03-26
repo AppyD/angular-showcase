@@ -9,7 +9,7 @@ export namespace WeatherInputs {
 
   export const Labels = {
     [Variables.TEMPERATURE]: "Temperature 2m",
-    [Variables.WINDSPEED]: "Windspeed 10m",
+    [Variables.WINDSPEED]: "Wind speed 10m",
     [Variables.RAIN]: "Rain",
     [Variables.SNOWFALL]: "Snowfall",
   }

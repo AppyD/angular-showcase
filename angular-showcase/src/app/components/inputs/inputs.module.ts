@@ -13,6 +13,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import { NumericalComponent } from './numerical/numerical.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     BrowserAnimationsModule,
     MatSelectModule,
     MatDatepickerModule,

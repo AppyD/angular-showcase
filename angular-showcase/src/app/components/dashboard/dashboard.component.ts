@@ -24,16 +24,18 @@ export class DashboardComponent {
     .pipe(
       take(1)
     ).subscribe(response => {
-      const label: string = WeatherInputs.Labels[request.hourly];
-      const model = {
-        data: this.transformData(response, request.hourly),
-        options: {
-          seriesName: label,
-          yAxisTitle: `${label} (${response.hourly_units[request.hourly]})`,
-          title: `${label} ${request.isLive ? 'Today' : request.start_date + " to " + request.end_date}`
-        }
-      };
-      this.chartModel.next(model);
+      if(response){
+        const label: string = WeatherInputs.Labels[request.hourly];
+        const model = {
+          data: this.transformData(response, request.hourly),
+          options: {
+            seriesName: label,
+            yAxisTitle: `${label} (${response.hourly_units[request.hourly]})`,
+            title: `${label} ${request.isLive ? 'Today' : request.start_date + ' to ' + request.end_date}`,
+          },
+        };
+        this.chartModel.next(model);
+      }
     });
   }
 

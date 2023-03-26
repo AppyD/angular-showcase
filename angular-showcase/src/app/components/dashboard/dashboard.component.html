@@ -6,6 +6,6 @@
   </aside>
 </section>
 
-<app-inputs (selections)="requestData($event)"></app-inputs>
+<app-inputs (selections$)="requestData($event)"></app-inputs>
 
-<app-chart [data]="chartModel | async"></app-chart>
+<app-chart [model]="chartModel | async"></app-chart>

@@ -8,8 +8,8 @@ import { Subject } from 'rxjs';
 })
 export class DatepickerComponent {
 
-  @Input() min: Date = new Date("2023-01-01");
-  @Input() max: Date = new Date();
+  public min: Date = new Date("2023-01-01"); // for practicality - don't want to request the endpoint for too much data!
+  public max: Date = new Date();
 
   @Output() startDate: Subject<Date> = new Subject();
   @Output() endDate: Subject<Date> = new Subject();

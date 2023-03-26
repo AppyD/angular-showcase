@@ -13,98 +13,116 @@ import { LocationChoices, TimeChoices } from './../../models/InputModels';
   styleUrls: ['./inputs.component.scss'],
 })
 export class InputsComponent {
-  @Output() selections: Subject<WeatherRequest.Request> = new Subject();
+  @Output() selections$: Subject<WeatherRequest.Request> = new Subject();
 
-  public variables: DropdownChoices[] = Object.entries(WeatherInputs.Labels).map(entry => {
-    return {value: entry[0], label: entry[1]}
+  public variables: DropdownChoices[] = Object.entries(
+    WeatherInputs.Labels
+  ).map((entry) => {
+    return { value: entry[0], label: entry[1] };
   });
 
   public isLive: boolean = true;
   public useCurrentLocation: boolean = true;
 
-  public inputSelections: any = {
+  public currentSelection: any = {
     hourly: undefined,
     latitude: undefined,
     longitude: undefined,
     startDate: undefined,
     endDate: undefined,
-    forecastDays: undefined
+    forecastDays: undefined,
   };
+
+  public previousSelection: any;
+
+  /**
+   * Methods for changing currentSelection
+   */
 
   setTime(selected: MatButtonToggleChange): void {
     this.isLive = selected.value === TimeChoices.LIVE;
-    if (this.isLive) {
-      this.inputSelections.forecastDays = 1;
-    }
+    this.currentSelection.forecastDays = this.isLive ? 1 : undefined;
   }
 
   setVariable(selectedVariable: string): void {
-    if (selectedVariable) {
-      this.inputSelections.hourly = selectedVariable as WeatherInputs.Variables;
-    }
+    this.currentSelection.hourly = selectedVariable as WeatherInputs.Variables;
   }
 
   setLatitude(latitude: number): void {
-    this.inputSelections.latitude = latitude;
+    this.currentSelection.latitude = latitude;
   }
 
   setLongitude(longitude: number): void {
-    this.inputSelections.longitude = longitude;
+    this.currentSelection.longitude = longitude;
   }
 
   setStartDate(startDate: Date): void {
-    this.inputSelections.startDate = startDate;
+    this.currentSelection.startDate = startDate;
   }
 
   setEndDate(endDate: Date): void {
-    this.inputSelections.endDate = endDate;
+    this.currentSelection.endDate = endDate;
   }
 
   setLocation(selected: MatButtonToggleChange): void {
-    if(selected.value === LocationChoices.CURRENT){
+    if (selected.value === LocationChoices.CURRENT) {
       this.useCurrentLocation = true;
       navigator.geolocation.getCurrentPosition((position) => {
-        this.inputSelections.latitude = position.coords.latitude;
-        this.inputSelections.longitude = position.coords.longitude;
+        this.currentSelection.latitude = position.coords.latitude;
+        this.currentSelection.longitude = position.coords.longitude;
       });
     } else {
       this.useCurrentLocation = false;
-      this.inputSelections.latitude = undefined;
-      this.inputSelections.longitude = undefined;
+      this.currentSelection.latitude = undefined;
+      this.currentSelection.longitude = undefined;
     }
   }
 
-  onSubmit(): void {
-    let request: WeatherRequest.Request;
+  /**
+   * Methods for submitting current selection
+   */
 
-    if(this.isLive){
-      request = {
-        isLive: true,
-        latitude: this.inputSelections.latitude,
-        longitude: this.inputSelections.longitude,
-        hourly: this.inputSelections.hourly,
-        forecast_days: this.inputSelections.forecastDays
-      };
+  submit(): void {
+    let request: WeatherRequest.Request = this.isLive
+    ? this.buildLiveObject()
+    : this.buildHistoricalObject();
+
+    if (this.areInputsValid(request) && !this.sameSelectionAsPrevious()) {
+      this.selections$.next(request);
+      this.previousSelection = { ...this.currentSelection };
     } else {
-      request = {
-        isLive: false,
-        latitude: this.inputSelections.latitude,
-        longitude: this.inputSelections.longitude,
-        hourly: this.inputSelections.hourly,
-        start_date: this.inputSelections.startDate.toISOString().slice(0,10),
-        end_date: this.inputSelections.endDate.toISOString().slice(0,10),
-      };
-    }
-
-    if(this.areInputsValid(request)){
-      this.selections.next(request);
-    } else {
-      console.error("Could not submit, some values undefined");
+      console.error('Did not submit.');
     }
   }
 
-  private areInputsValid(inputs: WeatherRequest.Request){
-    return !Object.values(inputs).some(x => x === undefined);
+  private areInputsValid(inputs: WeatherRequest.Request) {
+    return !Object.values(inputs).some((x) => x === undefined);
   }
 
+  private sameSelectionAsPrevious() {
+    return Object.entries(this.currentSelection).every(
+      (entry) => this.previousSelection?.[entry[0]] === entry[1]
+    );
+  }
+
+  private buildLiveObject(): WeatherRequest.Live {
+    return {
+      isLive: true,
+      latitude: this.currentSelection.latitude,
+      longitude: this.currentSelection.longitude,
+      hourly: this.currentSelection.hourly,
+      forecast_days: this.currentSelection.forecastDays,
+    };
+  }
+
+  private buildHistoricalObject(): WeatherRequest.Historical {
+    return {
+      isLive: false,
+      latitude: this.currentSelection.latitude,
+      longitude: this.currentSelection.longitude,
+      hourly: this.currentSelection.hourly,
+      start_date: this.currentSelection.startDate?.toISOString().slice(0, 10),
+      end_date: this.currentSelection.endDate?.toISOString().slice(0, 10),
+    }
+  }
 }

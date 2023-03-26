@@ -4,9 +4,11 @@
 </mat-button-toggle-group>
 
 <div *ngIf="!useCurrentLocation">
-  <app-numerical  [title]="'Latitude'" (valueChange$)="setLatitude($event)" class="input-group"></app-numerical>
+  <app-numerical  [title]="'Latitude'" [min]="-90" [max]="90"
+                  (valueChange$)="setLatitude($event)" class="input-group"></app-numerical>
 
-  <app-numerical  [title]="'Longitude'" (valueChange$)="setLongitude($event)" class="input-group"></app-numerical>
+  <app-numerical  [title]="'Longitude'" [min]="-180" [max]="180"
+                  (valueChange$)="setLongitude($event)" class="input-group"></app-numerical>
 </div>
 
 <app-dropdown class="input-group" [title]="'Variable'"
@@ -20,4 +22,4 @@
 
 <app-datepicker class="input-group" *ngIf="!isLive" (startDate)="setStartDate($event)" (endDate)="setEndDate($event)"></app-datepicker>
 
-<button mat-raised-button color="primary" class="input-group" (click)="onSubmit()">Submit</button>
+<button mat-raised-button color="primary" class="input-group" (click)="submit()">Submit</button>
