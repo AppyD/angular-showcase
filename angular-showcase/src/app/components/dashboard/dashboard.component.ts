@@ -15,6 +15,7 @@ import { Chart } from '../../models/Chart';
 export class DashboardComponent {
 
   public chartModel: Subject<Chart.Model> = new Subject();
+  public pastRequests: WeatherRequest.Request[] = [];
 
   constructor(public weatherService: WeatherService){
   }
@@ -35,6 +36,7 @@ export class DashboardComponent {
           },
         };
         this.chartModel.next(model);
+        this.pastRequests.push(request);
       }
     });
   }

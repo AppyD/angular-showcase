@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ChartModule } from '../chart/chart.module';
 
+import { ChartModule } from '../chart/chart.module';
+import { PastRequestsModule } from '../past-requests/past-requests.module';
 import { InputsModule } from './../inputs/inputs.module';
 import { DashboardComponent } from './dashboard.component';
 
@@ -14,7 +15,8 @@ import { DashboardComponent } from './dashboard.component';
     CommonModule,
     BrowserAnimationsModule,
     InputsModule,
-    ChartModule
+    ChartModule,
+    PastRequestsModule
   ],
   exports: [DashboardComponent]
 })

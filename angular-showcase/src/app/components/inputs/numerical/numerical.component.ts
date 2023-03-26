@@ -15,6 +15,10 @@ export class NumericalComponent {
 
   public value = 0;
 
+  ngOnInit(){
+    this.emitValue(this.value);
+  }
+
   emitValue(value: number){
     if(value !== null && value <= this.max && value >= this.min){
       this.valueChange$.next(value);

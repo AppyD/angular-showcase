@@ -1,0 +1,38 @@
+<section class="past-requests">
+  <h2>Past Requests</h2>
+  <mat-form-field>
+    <mat-label>Filter...</mat-label>
+    <input matInput [(ngModel)]="filterCriteria">
+  </mat-form-field>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Variable</th>
+        <th>Timespan</th>
+        <th>Start</th>
+        <th>End</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let request of pastRequests | filter: filterCriteria; index as ind; trackBy: trackByFn;">
+        <td>{{request.latitude}}</td>
+        <td>{{request.longitude}}</td>
+        <td>{{request.hourly}}</td>
+        <ng-template [ngIf]="request.isLive">
+          <td>Live</td>
+          <td>-</td>
+          <td>-</td>
+        </ng-template>
+        <ng-template [ngIf]="!request.isLive">
+          <td>Historical</td>
+          <td>{{request.start_date}}</td>
+          <td>{{request.end_date}}</td>
+        </ng-template>
+      </tr>
+    </tbody>
+  </table>
+</section>

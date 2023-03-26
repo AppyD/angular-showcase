@@ -1,5 +1,8 @@
+import { PastRequestsModule } from './../past-requests/past-requests.module';
+import { PastRequestsComponent } from './../past-requests/past-requests.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReplaySubject } from 'rxjs';
+import { WeatherInputs } from 'src/app/models/WeatherInputs';
 import { WeatherRequest } from 'src/app/models/WeatherRequest';
 
 import { WeatherService } from './../../services/weather.service';
@@ -19,7 +22,7 @@ describe('DashboardComponent', () => {
     weatherService.getData.and.callFake(() => dataSubject);
 
     await TestBed.configureTestingModule({
-      imports: [ InputsModule, ChartModule],
+      imports: [ InputsModule, ChartModule, PastRequestsModule],
       providers: [{provide: WeatherService, useValue: weatherService}],
       declarations: [ DashboardComponent ]
     })
@@ -102,6 +105,23 @@ describe('DashboardComponent', () => {
     component.requestData({hourly: "temperature_2m", isLive: true} as WeatherRequest.Request);
 
     expect(onNextSpy).not.toHaveBeenCalled();
+  });
+
+  it("should add to past requests list after successful requests", () => {
+    dataSubject.next({
+      hourly: {
+        time: [1,2,3,4],
+        rain: [10,20,30,40]
+      },
+      hourly_units: {
+        rain: ["degrees"]
+      }
+    });
+
+    const request: WeatherRequest.Request = {hourly: WeatherInputs.Variables.RAIN, isLive: false, start_date: "2023-02-02", end_date: "2023-03-03", longitude: 10, latitude: 50};
+    component.requestData(request);
+
+    expect(component.pastRequests).toContain(request);
   });
 
 });
