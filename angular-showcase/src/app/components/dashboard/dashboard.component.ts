@@ -31,7 +31,7 @@ export class DashboardComponent {
           options: {
             seriesName: label,
             yAxisTitle: `${label} (${response.hourly_units[request.hourly]})`,
-            title: `${label} ${request.isLive ? 'Today' : request.start_date + ' to ' + request.end_date}`,
+            title: `${label} (${request.isLive ? 'Today' : request.start_date + ' to ' + request.end_date})`,
           },
         };
         this.chartModel.next(model);
